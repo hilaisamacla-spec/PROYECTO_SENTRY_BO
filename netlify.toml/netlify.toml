@@ -1,6 +1,5 @@
 [build]
   publish = "src"
-  command = ""
 
 [[headers]]
   for = "/service-worker.js"
