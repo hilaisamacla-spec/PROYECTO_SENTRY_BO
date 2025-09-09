@@ -1,0 +1,462 @@
+<!-- plataforma.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <link rel="manifest" href="manifest.json">
+  <title>Plataforma SENTRY - BO</title>
+  <link rel="stylesheet" href="renderer/css/plataforma.css">
+
+</head>
+<body>
+
+  <script src="pwa-setup.js"></script>
+  
+  <div id="map"></div>
+  <!-- <div id="content"></div> -->
+
+  <div id="sidebar">
+   <img src="assets/logo.png" alt="Imagen Policía"
+      style="display: block; margin: 20px auto; width: 60%; max-width: 200px; height: auto; border-radius: 12px; box-shadow: none;">
+    <h2>SENTRY - BO</h2>
+    <button id="btnInstalarPWA" onclick="instalarPWA()" style="display:none;">
+            Instalar en mi dispositivo
+</button>
+    <div class="botonera">
+      <button style="width: 80%;" class="button" onclick="abrirListaVehiculos()">Vehículos</button>
+      <button style="width: 15%;" class="button small" onclick="abrirModal()" title="Añadir vehículo">
+        ➕
+      </button>
+    </div>
+    <div class="botonera">
+      <button style="width: 80%;" class="button" onclick="abrirListaOperadoresModal()">Operadores</button>
+      <button style="width: 15%;" class="button small" onclick="abrirOperadorModal()" title="Añadir operador">
+        ➕
+      </button>
+    </div>
+    <div class="botonera">
+      <button style="width: 80%;" class="button" onclick="abrirListaZonasModal()">Zonas de Riesgo</button>
+      <button style="width: 15%;" class="button small" onclick="abrirZonaModal()" title="Añadir zona">
+        ➕
+      </button>
+    </div>
+    <div class="botonera">
+      <button style="width: 80%;" class="button" onclick="abrirListaLocalizadoresModal()">Localizador Emergencia</button>
+      <button style="width: 15%;" class="button small" onclick="abrirAsignarPatrullaModal()" title="Añadir zona">
+        ➕
+       </button>       
+    </div>
+    <div class="botonera">
+      <button style="width: 95%;" class="button" onclick="abrirPanelEnrutamientos()">Reporte Enrutamientos</button>
+      </button>
+    </div>
+    <div class="botonera">
+      <button style="width: 95%;" class="button" onclick="verHistorial()">Historial</button>
+    </div>
+    <hr>
+    <div class="botonera">
+      <button style="width: 95%;" class="button" onclick="salir()">Cerrar jornada</button>
+    </div>
+  </div>
+
+  <div id="salirModal" class="modal">
+    <div class="modal-content">
+      <p>¿Está seguro de que desea salir del sistema?</p>
+      <div class="modal-buttons">
+        <button class="modal-button cancelar" onclick="cerrarModal()">Cancelar</button>
+        <button class="modal-button confirmar" onclick="salirDefinitivo()">Cerrar jornada</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal para registrar vehículo -->
+  <div id="vehicleModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="cerrarVehiculoModal()">&times;</span>
+      <h3>Registrar Vehículo</h3>
+      <form id="vehicleForm">
+        <label for="vehicleId">ID del Vehículo:</label>
+        <input type="text" id="vehicleId" required><br><br>
+
+        <label for="vehicleModel">Modelo:</label>
+        <input type="text" id="vehicleModel" required><br><br>
+
+        <label for="vehicleType">Tipo de Vehículo:</label>
+        <select id="vehicleType" required>
+          <option value="motocicleta">Motocicleta</option>
+          <option value="policial">Vehículo policial</option>
+          <option value="particular">Vehículo particular</option>
+        </select><br><br>
+
+        <label for="vehiclePlate">Placa:</label>
+        <input type="text" id="vehiclePlate" required><br><br>
+
+        <label for="vehicleDesc">Descripción (opcional):</label>
+        <textarea id="vehicleDesc" rows="3" placeholder="Escribe detalles opcionales..."></textarea><br><br>
+
+        <button type="submit">Guardar</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal para mostrar la lista -->
+  <div id="listaModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="cerrarListaVehiculos()">&times;</span>
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <h3>Vehículos Registrados</h3>
+        <!-- <button class="button small" onclick="atajoCrearDesdeLista()">+ Nuevo</button> -->
+      </div>
+      <table id="tablaVehiculos" class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Modelo</th>
+            <th>Tipo</th>
+            <th>Placa</th>
+            <th>Descripción</th>
+          </tr>
+        </thead>
+        <tbody id="vehicleList">
+          <!-- Se llena dinámicamente -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Modal para registrar operador -->
+  <div id="operadorModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="cerrarOperadorModal()">&times;</span>
+      <h3>Registrar Operador</h3>
+      <form id="operadorForm">
+        <label for="opNombre">Nombre:</label>
+        <input type="text" id="opNombre" required><br><br>
+
+        <label for="opCorreo">Correo electrónico:</label>
+        <input type="email" id="opCorreo" required><br><br>
+
+        <label for="opPassword">Contraseña:</label>
+        <input type="password" id="opPassword" required><br><br>
+
+        <select id="opRol" required>
+          <option value="Admin">Admin</option>
+          <option value="Operador">Operador</option>
+        </select><br><br>
+
+        <!-- rol y estado se definen por defecto en el código -->
+        <button type="submit">Guardar</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal para listar operadores -->
+  <div id="listaOperadoresModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="cerrarListaOperadoresModal()">&times;</span>
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <h3>Operadores Registrados</h3>
+        <!-- <button class="button small" onclick="atajoCrearOperadorDesdeLista()">+ Nuevo</button> -->
+      </div>
+      <table id="tablaOperadores" class="table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Correo</th>
+            <th>Rol</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody id="operadoresList">
+          <!-- Se llena dinámicamente -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Modal para registrar emergencia -->
+  <div id="emergenciaModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="cerrarEmergenciaModal()">&times;</span>
+      <h3>Registrar Emergencia</h3>
+      <form id="emergenciaForm">
+        <label for="emergenciaDescripcion">Descripción:</label>
+        <textarea id="emergenciaDescripcion" rows="3" required></textarea><br><br>
+
+        <label for="emergenciaTipo">Tipo de Emergencia:</label>
+        <select id="emergenciaTipo" required>
+          <option value="Incendio">Incendio</option>
+          <option value="Accidente">Accidente</option>
+          <option value="Asalto">Asalto</option>
+          <option value="Otro">Otro</option>
+        </select><br><br>
+
+        <button type="submit">Guardar</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal para listar emergencias -->
+  <div id="listaEmergenciasModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="cerrarListaEmergenciasModal()">&times;</span>
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <h3>Emergencias Reportadas</h3>
+        <!-- <button class="button small" onclick="atajoCrearEmergenciaDesdeLista()">+ Nuevo</button> -->
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Descripción</th>
+            <th>Tipo</th>
+            <th>Ubicación</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="emergenciasList">
+          <!-- Se llena dinámicamente -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Modal para registrar zona -->
+  <div id="zonaModal" class="modal">
+    <!-- Formulario dentro de zonaModal -->
+    <div class="modal-content">
+
+      <span class="close" onclick="cerrarZonaModal()">&times;</span>
+      <form id="zonaForm">
+      <label for="zonaNombre">Nombre de la zona:</label>
+      <input type="text" id="zonaNombre" required><br><br>
+    
+      <label for="zonaDescripcion">Descripción:</label>
+      <textarea id="zonaDescripcion" rows="3"></textarea><br><br>
+      <label for="zonaCategoria">Categoria:</label>
+      <select id="zonaCategoria" required>
+        <option value="">Seleccione la categoria de zona</option>
+        <option value="central">Zona Central</option>
+        <option value="riesgo">Zona de Riesgo</option>
+      </select><br><br>
+
+      <label>Ubicación:</label>
+      <div id="mapZona" style="width: 100%; height: 300px; margin-bottom: 10px;"></div>
+    
+      <input type="hidden" id="zonaLat">
+      <input type="hidden" id="zonaLng">
+    
+      <p id="zonaUbicacionTexto" style="font-size: 0.9em; color: #555;"></p>
+    
+      <button type="submit">Guardar</button>
+    </form>
+    </div>
+
+  </div>
+
+  <!-- Modal para listar zonas -->
+  <div id="listaZonasModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="cerrarListaZonasModal()">&times;</span>
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <h3>Zonas Registradas</h3>
+        <!-- <button class="button small" onclick="atajoCrearZonaDesdeLista()">+ Nuevo</button> -->
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Categoria</th>
+            <th>Descripción</th>
+            <th>Ubicación</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="zonasList">
+          <!-- Se llena dinámicamente -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Modal para registrar localizador -->
+  <div id="localizadorModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="cerrarLocalizadorModal()">&times;</span>
+      <h3>Registrar Localización Emergencia</h3>
+      <form id="localizadorForm">
+        <label for="localizadorPersona">Nombre Solicitante:</label>
+        <input type="text" id="localizadorPersona" required><br><br>
+
+        <label for="localizadorDescripcion">Descripción:</label>
+        <textarea id="localizadorDescripcion" rows="3" required></textarea><br><br>
+
+        <label for="localizadorTipo">Tipo de Emergencia:</label>
+        <select id="localizadorTipo" required>
+          <option value="Incendio">Incendio</option>
+          <option value="Accidente">Accidente</option>
+          <option value="Asalto">Asalto</option>
+          <option value="Otro">Otro</option>
+        </select><br><br>
+
+        <button type="submit">Guardar</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal para listar localizadores -->
+  <div id="listaLocalizadoresModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="cerrarListaLocalizadoresModal()">&times;</span>
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <h3>Localización Emergencia</h3>
+        <!-- <button class="button small" onclick="atajoCrearLocalizadorDesdeLista()">+ Nuevo</button> -->
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Solicitante</th>
+            <th>Tipo</th>
+            <th>Estado</th>
+            <th>Asignación</th>
+            <th>Descripción</th>
+            <th>Ubicación</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="localizadoresList">
+          <!-- Se llena dinámicamente -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Modal para asignar patrulla -->
+  <div id="asignarPatrullaModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="cerrarAsignarPatrullaModal()">&times;</span>
+      <h3>Asignar Patrulla</h3>
+      <form id="formAsignarPatrulla">
+        <input type="hidden" id="asignarLocalizadorId">
+        <label for="selectPatrulla">Selecciona una patrulla:</label>
+        <select id="selectPatrulla" required></select>
+        <br><br>
+        <button type="submit">Asignar</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Historial -->
+  <div id="historialModal" class="modal">
+    <div class="modal-content" style="max-width: 800px;">
+      <span class="close" onclick="cerrarHistorialModal()">&times;</span>
+      <h3>Historial de Vehículos</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Vehículo</th>
+            <th>Placa</th>
+            <th>Ruta</th>
+            <th>Fecha</th>
+          </tr>
+        </thead>
+        <tbody id="tablaHistorialVehiculos">
+          <!-- Se llenará dinámicamente -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+<!-- Modal Asignar Móvil -->
+<div id="asignarMovilPorEmailModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="cerrarAsignarMovilPorEmailModal()">&times;</span>
+    <h3>Asignar Móvil a Emergencia</h3>
+    <form id="formAsignarMovilPorEmail">
+      <!-- ID de la emergencia a asignar (oculto) -->
+      <input type="hidden" id="emergenciaIdParaAsignar">
+
+      <!-- Select con móviles filtrados por rol "socio" -->
+      <label for="selectMovilEmail">Selecciona un móvil (socio):</label>
+      <select id="selectMovilEmail" required>
+        <option value="">Cargando móviles...</option>
+      </select>
+
+      <br><br>
+      <button type="submit">Asignar</button>
+    </form>
+  </div>
+</div>
+
+<div id="panelEnrutamientos">
+
+  <!-- Botón cerrar en la esquina superior derecha -->
+  <button class="cerrar-btn" onclick="cerrarPanelEnrutamientos()">✖ Cerrar</button>
+
+  <!-- Fila con input de fecha y botón Filtrar -->
+  <div class="filtro-row">
+    <div class="form-group">
+      <label for="filtroFechaEnrutamientos">Filtrar por fecha:</label>
+      <input type="date" id="filtroFechaEnrutamientos" />
+    </div>
+
+    <button id="btnFiltrarEnrutamientos" onclick="filtrarEnrutamientos()">Filtrar</button>
+  </div>
+
+  <!-- Checkbox Ver todos -->
+<div class="ver-todos-container">
+  <label for="verTodosEnrutamientos">
+    Ver todos
+    <input type="checkbox" id="verTodosEnrutamientos" />
+  </label>
+</div>
+
+  <!-- Aquí tu tabla de resultados -->
+  <table id="tablaEnrutamientos">
+    <thead>
+      <tr>
+        <th>Placa</th>
+        <th>Fecha</th>
+        <th>Punto de Inicio</th>
+        <th>Punto de Fin</th>
+        <th>Recorrido</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Filas se insertan dinámicamente -->
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="4" style="text-align:right;"><strong>Total</strong></td>
+        <td id="totalKm">0.00 km</td>
+      </tr>
+    </tfoot>
+  </table>
+
+</div>
+
+
+
+  <!-- Scripts -->
+   <script type="module" src="renderer/mapa.js"></script>
+     <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2hnKp0HOefSXQmvvuFaK_Xbpfb_C9pqo"
+    async defer></script>
+  <script src="renderer/modal-vehiculos.js"></script>
+  <script src="renderer/modal-operadores.js"></script>
+  <script src="renderer/modal-zonas.js"></script>
+  <script src="renderer/modal-localizadores.js"></script>
+  <script src="renderer/modal-historiales.js"></script>
+  <script src="renderer/logout.js"></script>
+  <script type="module" src="renderer/firebase.js"></script>
+  <script type="module" src="renderer/vehiculos.js"></script>
+  <script type="module" src="renderer/operadores.js"></script>
+  <script type="module" src="renderer/zonas.js"></script>
+  <script type="module" src="renderer/localizadores.js"></script>
+  <script type="module" src="renderer/seguimiento.js"></script>
+  <script type="module" src="renderer/asignacion-movil.js"></script>
+  <script type="module" src="renderer/reporte-enrutamientos.js"></script>
+</body>
+</html>

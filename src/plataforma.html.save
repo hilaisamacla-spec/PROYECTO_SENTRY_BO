@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Plataforma CENTRY - BO</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    overflow: hidden;
+    background-color: #3B5E3B;
+  }
+
+  #map {
+    position: absolute;
+    top: 0;
+    left: 25%;
+    width: 75%;
+    height: 100%;
+    z-index: 0;
+  }
+
+  #sidebar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 25%;
+    height: 100%;
+    background-color: #3B5E3B;
+    color: white;
+    padding: 20px;
+    box-sizing: border-box;
+    border-right: 5px solid #FFD700;
+    overflow-y: auto;
+    z-index: 1;
+  }
+
+  .button {
+    margin: 10px 0;
+    padding: 12px;
+    background: #FFD700;
+    color: #3B5E3B;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    width: 100%;
+    transition: background 0.3s;
+  }
+
+  .button:hover {
+    background: #e6c200;
+  }
+
+  h2 {
+    color: #FFD700;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #FFD700;
+    padding-bottom: 10px;
+    text-align: center;
+  }
+
+  #modal {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+  }
+
+  .modal-content {
+    background: white;
+    color: #3B5E3B;
+    padding: 30px;
+    border-radius: 10px;
+    width: 350px;
+    text-align: center;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+  }
+
+  .modal-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .modal-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  .cancelar {
+    background-color: #ccc;
+    color: black;
+  }
+
+  .confirmar {
+    background-color: #3B5E3B;
+    color: white;
+  }
+</style>
+</head>
+<body>
+
+  <div id="map"></div>
+
+  <div id="sidebar">
+   <img src="/mnt/c/Users/VICTUS/Desktop/POLICIA BOLIVIANA.png" alt="Imagen Policía"
+      style="width:50%; border-radius:10px; margin: 5px auto; box-shadow: 0 0 12px rgba(0,0,0,0.4);">
+    <h2>CENTRY - BO</h2>
+    <button class="button" onclick="nuevoVehiculo()">Añadir Vehículo</button>
+    <button class="button" onclick="nuevoOperador()">Nuevo Operador</button>
+    <button class="button" onclick="zonaRiesgo()">Zonas de Riesgo</button>
+    <button class="button" onclick="localizador()">Localizador Emergencia</button>
+    <button class="button" onclick="verHistorial()">Ver Historial</button>
+    <hr>
+    <button class="button" onclick="salir()">Cerrar jornada</button>
+  </div>
+<img src="/mnt/c/Users/VICTUS/Desktop/v.png" alt="Logo Policía Boliviana"
+      style="width:50%; border-radius:5px; margin: 10px auto; box-shadow: 0 0 12px rgba(0,0,0,0.4);">
+
+  <div id="modal">
+    <div class="modal-content">
+      <h3>¿Cerrar jornada policial?</h3>
+      <p>¿Está seguro de que desea salir del sistema?</p>
+      <div class="modal-buttons">
+        <button class="modal-button cancelar" onclick="cerrarModal()">Cancelar</button>
+        <button class="modal-button confirmar" onclick="salirDefinitivo()">Cerrar jornada</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    const { ipcRenderer } = require('electron');
+
+    var map = L.map('map').setView([-16.972541, -65.419137], 16);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+    }).addTo(map);
+
+    L.marker([-16.972541, -65.419137]).addTo(map)
+      .bindPopup("<b>Central SENTRY - BO</b><br>Comando Regional - Trópico de Cochabamba")
+      .openPopup();
+
+    function salir() {
+      document.getElementById('modal').style.display = 'flex';
+    }
+
+    function cerrarModal() {
+      document.getElementById('modal').style.display = 'none';
+    }
+
+    function salirDefinitivo() {
+      ipcRenderer.send('cerrar-aplicacion');
+    }
+
+    function nuevoVehiculo() {
+      alert("Aquí se registrará un nuevo vehículo GPS");
+    }
+
+    function nuevoOperador() {
+      alert("Aquí se añadirá un nuevo operador policial");
+    }
+
+    function zonaRiesgo() {
+      alert("Aquí se marcarán zonas de riesgo del municipio");
+    }
+
+    function localizador() {
+      alert("Aquí podrás buscar una ubicación de emergencia");
+    }
+
+    function verHistorial() {
+      alert("Aquí se mostrará el historial de recorridos en PDF o Excel");
+    }
+  </script>
+</body>
+</html>

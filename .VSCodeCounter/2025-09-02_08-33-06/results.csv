@@ -1,0 +1,35 @@
+"filename", "language", "JavaScript", "HTML", "Markdown", "JSON", "PostCSS", "comment", "blank", "total"
+"d:\Documentos Administrador\Downloads\PROYECTO SENTRY - BO\README.md", "Markdown", 0, 0, 20, 0, 0, 0, 9, 29
+"d:\Documentos Administrador\Downloads\PROYECTO SENTRY - BO\firebase-config.js", "JavaScript", 14, 0, 0, 0, 0, 2, 4, 20
+"d:\Documentos Administrador\Downloads\PROYECTO SENTRY - BO\main.js", "JavaScript", 13, 0, 0, 0, 0, 8, 5, 26
+"d:\Documentos Administrador\Downloads\PROYECTO SENTRY - BO\models.js", "JavaScript", 18, 0, 0, 0, 0, 2, 6, 26
+"d:\Documentos Administrador\Downloads\PROYECTO SENTRY - BO\package-lock.json", "JSON", 0, 0, 0, 3088, 0, 0, 1, 3089
+"d:\Documentos Administrador\Downloads\PROYECTO SENTRY - BO\package.json", "JSON", 0, 0, 0, 84, 0, 0, 1, 85
+"d:\Documentos Administrador\Downloads\PROYECTO SENTRY - BO\preload.js", "JavaScript", 6, 0, 0, 0, 0, 0, 1, 7
+"d:\Documentos Administrador\Downloads\PROYECTO SENTRY - BO\server.js", "JavaScript", 42, 0, 0, 0, 0, 8, 15, 65
+"d:\Documentos Administrador\Downloads\PROYECTO SENTRY - BO\src\hidden-main.js", "JavaScript", 25, 0, 0, 0, 0, 18, 7, 50
+"d:\Documentos Administrador\Downloads\PROYECTO SENTRY - BO\src\index.html", "HTML", 0, 101, 0, 0, 0, 0, 10, 111
+"d:\Documentos Administrador\Downloads\PROYECTO SENTRY - BO\src\ipcHandlers.js", "JavaScript", 5, 0, 0, 0, 0, 0, 2, 7
+"d:\Documentos Administrador\Downloads\PROYECTO SENTRY - BO\src\menu.js", "JavaScript", 13, 0, 0, 0, 0, 0, 2, 15
+"d:\Documentos Administrador\Downloads\PROYECTO SENTRY - BO\src\plataforma.html", "HTML", 0, 370, 0, 0, 0, 36, 51, 457
+"d:\Documentos Administrador\Downloads\PROYECTO SENTRY - BO\src\renderer\asignacion-movil.js", "JavaScript", 32, 0, 0, 0, 0, 3, 10, 45
+"d:\Documentos Administrador\Downloads\PROYECTO SENTRY - BO\src\renderer\css\plataforma.css", "PostCSS", 0, 0, 0, 0, 297, 16, 16, 329
+"d:\Documentos Administrador\Downloads\PROYECTO SENTRY - BO\src\renderer\emergencias.js", "JavaScript", 78, 0, 0, 0, 0, 3, 13, 94
+"d:\Documentos Administrador\Downloads\PROYECTO SENTRY - BO\src\renderer\firebase.js", "JavaScript", 33, 0, 0, 0, 0, 4, 4, 41
+"d:\Documentos Administrador\Downloads\PROYECTO SENTRY - BO\src\renderer\localizadores.js", "JavaScript", 165, 0, 0, 0, 0, 7, 28, 200
+"d:\Documentos Administrador\Downloads\PROYECTO SENTRY - BO\src\renderer\logout.js", "JavaScript", 14, 0, 0, 0, 0, 2, 1, 17
+"d:\Documentos Administrador\Downloads\PROYECTO SENTRY - BO\src\renderer\mapa.js", "JavaScript", 85, 0, 0, 0, 0, 5, 17, 107
+"d:\Documentos Administrador\Downloads\PROYECTO SENTRY - BO\src\renderer\modal-emergencias.js", "JavaScript", 16, 0, 0, 0, 0, 1, 3, 20
+"d:\Documentos Administrador\Downloads\PROYECTO SENTRY - BO\src\renderer\modal-historiales.js", "JavaScript", 21, 0, 0, 0, 0, 3, 4, 28
+"d:\Documentos Administrador\Downloads\PROYECTO SENTRY - BO\src\renderer\modal-localizadores.js", "JavaScript", 19, 0, 0, 0, 0, 1, 4, 24
+"d:\Documentos Administrador\Downloads\PROYECTO SENTRY - BO\src\renderer\modal-operadores.js", "JavaScript", 18, 0, 0, 0, 0, 2, 1, 21
+"d:\Documentos Administrador\Downloads\PROYECTO SENTRY - BO\src\renderer\modal-vehiculos.js", "JavaScript", 24, 0, 0, 0, 0, 1, 2, 27
+"d:\Documentos Administrador\Downloads\PROYECTO SENTRY - BO\src\renderer\modal-zonas.js", "JavaScript", 45, 0, 0, 0, 0, 3, 9, 57
+"d:\Documentos Administrador\Downloads\PROYECTO SENTRY - BO\src\renderer\operadores.js", "JavaScript", 86, 0, 0, 0, 0, 7, 15, 108
+"d:\Documentos Administrador\Downloads\PROYECTO SENTRY - BO\src\renderer\reporte-enrutamientos.js", "JavaScript", 96, 0, 0, 0, 0, 5, 22, 123
+"d:\Documentos Administrador\Downloads\PROYECTO SENTRY - BO\src\renderer\seguimiento.js", "JavaScript", 32, 0, 0, 0, 0, 4, 9, 45
+"d:\Documentos Administrador\Downloads\PROYECTO SENTRY - BO\src\renderer\vehiculos.js", "JavaScript", 94, 0, 0, 0, 0, 8, 13, 115
+"d:\Documentos Administrador\Downloads\PROYECTO SENTRY - BO\src\renderer\zonas.js", "JavaScript", 102, 0, 0, 0, 0, 3, 12, 117
+"d:\Documentos Administrador\Downloads\PROYECTO SENTRY - BO\src\welcome.html", "HTML", 0, 26, 0, 0, 0, 0, 1, 27
+"d:\Documentos Administrador\Downloads\PROYECTO SENTRY - BO\src\windows.js", "JavaScript", 50, 0, 0, 0, 0, 2, 12, 64
+"Total", "-", 1146, 497, 20, 3172, 297, 154, 310, 5596

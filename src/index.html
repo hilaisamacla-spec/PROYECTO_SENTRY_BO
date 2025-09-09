@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>SENTRY - BO</title>
+  <style>
+    body {
+      background-color: #3B5E3B; /* Verde olivo */
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      color: white;
+    }
+
+    h2 {
+      color: #FFD700; /* Amarillo oro */
+    }
+
+    input {
+      padding: 12px;
+      margin: 10px;
+      width: 80%;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    button {
+      padding: 12px;
+      background-color: #FFD700;
+      color: #3B5E3B;
+      font-weight: bold;
+      border: none;
+      width: 85%;
+      margin-top: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    img {
+      width: 130px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.5);
+    }
+
+    #error {
+      margin-top: 10px;
+      color: #FFD700;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <img src="assets/logo_sentr_bo.png" alt="Logo SENTR-BO"
+     style="display: block; margin: 2px auto; width: 75%; max-width: 750px; height: auto; border-radius: 2px; box-shadow: none;">
+  <h2>Ingreso al Sistema</h2>
+  <input type="text" id="usuario" placeholder="Usuario">
+  <input type="password" id="clave" placeholder="Contraseña">
+  <button onclick="ingresar()">Ingresar</button>
+  <p id="error"></p>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+  import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+  import { getFirestore, collection, addDoc } 
+  from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+  // const firebaseConfig = { 
+  // apiKey: "AIzaSyAMdHfi5E-5eWmEYti3zEEyJ4e3Di6lHCI",
+  // authDomain: "sentry-bo-v1.firebaseapp.com",
+  // projectId: "sentry-bo-v1",
+  // storageBucket: "sentry-bo-v1.firebasestorage.app",
+  // messagingSenderId: "649887878541",
+  // appId: "1:649887878541:web:f59a0adf2861a33739c1c4"
+  // };
+  const firebaseConfig = {
+  apiKey: "AIzaSyAPBnQJF1hokQpVlMUByh2VZZ6cA5eI0R4",
+  authDomain: "helpdesk-457916.firebaseapp.com",
+  projectId: "helpdesk-457916",
+  storageBucket: "helpdesk-457916.firebasestorage.app",
+  messagingSenderId: "270817564776",
+  appId: "1:270817564776:web:afc046561675760e05c3dd"
+};
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  window.ingresar = async function () {
+    const email = document.getElementById('usuario').value.trim();
+    const pass = document.getElementById('clave').value.trim();
+    try {
+      const cred = await signInWithEmailAndPassword(auth, email, pass);
+      window.electronAPI.sendLoginExitoso(cred.user.uid);
+    } catch (error) {
+      // document.getElementById('error').innerText = "Credenciales incorrectas";
+      document.getElementById('error').innerText = `${error.code} - ${error.message}`;
+      console.error(error);
+      window.electronAPI.sendLoginError(error.message);
+      localStorage.setItem("rolUsuario", "ADMINISTRADOR");
+
+    }
+  }
+</script>
+
+</body>
+</html>
